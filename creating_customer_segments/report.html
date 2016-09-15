@@ -12154,14 +12154,14 @@ div#notebook {
 <ol>
 <li><p>Index 85: Retailer</p>
 <ul>
-<li>Highest spending on detergents and paper of all customers in dataset. May have a large 'home goods' focus.</li>
-<li>Spends a lot of groceries and milk</li>
-<li>Spends little on frozen food</li>
+<li>Highest spending on (1) detergents and paper and (2) groceries (each) of all customers in dataset. (1) -&gt; May have a large 'home goods' focus.</li>
+<li>Milk: Spends more than the median amount </li>
+<li>Frozen: Spends less than the median customer</li>
 </ul>
 </li>
 <li><p>Index 181: Large market</p>
 <ul>
-<li>High spending on most product categories: 8000+ MUs spent on each of all food-related goods, nearly 5000 MUs spent on detergents and paper.</li>
+<li>High spending on most product categories: 8000+ MUs spent on each of all food-related goods, nearly 5000 MUs spent on detergents and paper (highest quartile for spending in all good categories).</li>
 <li>Highest spending on fresh goods of all customers in dataset</li>
 <li>Focus on fresh goods, which means it likely has a large market component.</li>
 <li>Little emphasis on detergent and paper, which indicates it is unlikely to be a shopping mall type shop.</li>
@@ -12169,7 +12169,11 @@ div#notebook {
 </li>
 <li><p>Index 338: Restaurant</p>
 <ul>
-<li>Much smaller scale than the previous two customers discussed.</li>
+<li>Much smaller scale than the previous two customers discussed.<ul>
+<li>Amount spent on Fresh is least in dataset.</li>
+<li>Spending on each of Milk, Detergents and Paper is in the bottom quartile.</li>
+</ul>
+</li>
 <li>Needs groceries and frozen food to produce food for customers. May serve delicatessen type meats. Needs milk for coffee and tea.</li>
 <li>May be cheaper so it doesn't need much fresh food.</li>
 </ul>
@@ -14134,7 +14138,7 @@ Ny7+WPF7swAAAABJRU5ErkJggg==
 <ul>
 <li>The pair (<code>Detergents_Paper</code>, <code>Grocery</code>) exhibits a high degree of correlation. The pairs (<code>Milk</code>,<code>Grocery</code>) and (<code>Milk</code>,<code>Detergents_Paper</code>) also exhibit some degree of correlation.</li>
 <li>This confirms that <code>Grocery</code> might not be that relevant (necessary).</li>
-<li>The data is not normally distributed - it is positively skewed.</li>
+<li>The data is not normally distributed - it is positively skewed. The features more closely resemble the log-normal distribution.</li>
 </ul>
 
 </div>
@@ -19546,7 +19550,7 @@ AZSWyKm8CV39AAAAAElFTkSuQmCC
 <p><strong>Advantages to using K-Means clustering</strong></p>
 <ul>
 <li>Hard labelling so all datapoints are in certain clusters</li>
-<li>Simple to implement</li>
+<li>Less computationally expensive (than a Gaussian Mixture Model)</li>
 <li>Guaranteed to converge</li>
 <li>Scale-invariant</li>
 <li>Consistent</li>
@@ -19554,7 +19558,8 @@ AZSWyKm8CV39AAAAAElFTkSuQmCC
 <p><strong>Advantages to using Gaussian Mixture Model clustering</strong></p>
 <ul>
 <li>One point can be shared between clusters because points are assigned probabilities of belonging to each cluster (soft) as opposed to hard labels</li>
-<li>Can look at probabilities to know how sure the algorithm is that each point is in each cluster</li>
+<li>More information: Can look at probabilities to know how sure the algorithm is that each point is in each cluster</li>
+<li>Can model all elliptical clusters (vs K-Means which assumes clusters are spherical)</li>
 </ul>
 <p><strong>Chosen algorithm</strong></p>
 <ul>
