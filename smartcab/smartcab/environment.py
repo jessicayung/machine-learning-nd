@@ -39,6 +39,8 @@ class Environment(object):
         self.agent_states = OrderedDict()
         self.status_text = ""
         self.results = []
+        self.total_reward = 0.0
+        self.penalties = 0.0
 
         # Road network
         self.grid_size = (8, 6)  # (cols, rows)
@@ -77,6 +79,7 @@ class Environment(object):
     def reset(self):
         self.done = False
         self.t = 0
+        self.total_reward = 0.0
 
         # Reset traffic lights
         for traffic_light in self.intersections.itervalues():
@@ -93,6 +96,7 @@ class Environment(object):
 
         start_heading = random.choice(self.valid_headings)
         deadline = self.compute_dist(start, destination) * 5
+        self.initial_deadline = deadline
         print "Environment.reset(): Trial set up with start = {}, destination = {}, deadline = {}".format(start, destination, deadline)
 
         # Initialize agent(s)
@@ -125,7 +129,7 @@ class Environment(object):
                 print "Environment.step(): Primary agent hit hard time limit ({})! Trial aborted.".format(self.hard_time_limit)
             elif self.enforce_deadline and agent_deadline <= 0:
                 self.done = True
-                self.results.append((agent_deadline, reward))
+                self.results.append((state['deadline'], self.initial_deadline, float(state['deadline'])/float(self.initial_deadline), reward, self.total_reward, self.penalties))
                 print "Results: ", self.results
                 print "Environment.step(): Primary agent ran out of time! Trial aborted."
             self.agent_states[self.primary_agent]['deadline'] = agent_deadline - 1
@@ -206,6 +210,7 @@ class Environment(object):
         else:
             # Invalid move
             reward = -1.0
+            self.penalties += 1.0
 
         if agent is self.primary_agent:
             if state['location'] == state['destination']:
@@ -213,11 +218,12 @@ class Environment(object):
                     reward += 10  # bonus
                 self.done = True
                 print "Environment.act(): Primary agent has reached destination!"  # [debug]
-                self.results.append((state['deadline'], reward))
+                self.results.append((state['deadline'], self.initial_deadline, float(state['deadline'])/float(self.initial_deadline), reward, self.total_reward, self.penalties))
                 print "Results: ", self.results
             self.status_text = "state: {}\naction: {}\nreward: {}".format(agent.get_state(), action, reward)
             #print "Environment.act() [POST]: location: {}, heading: {}, action: {}, reward: {}".format(location, heading, action, reward)  # [debug]
 
+        self.total_reward += reward
         return reward
 
     def compute_dist(self, a, b):

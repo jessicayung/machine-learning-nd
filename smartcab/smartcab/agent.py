@@ -2,6 +2,7 @@ import random
 from environment import Agent, Environment
 from planner import RoutePlanner
 from simulator import Simulator
+import numpy as np
 
 class LearningAgent(Agent):
     """ An agent that learns to drive in the smartcab world."""
@@ -17,10 +18,11 @@ class LearningAgent(Agent):
 
         # Q-Learning parameters
         self.epsilon = 0.1
-        self.alpha = 0.3 # Alpha is the learning rate
+        self.alpha = 1 # Alpha is the learning rate
         self.gamma = 0.5 # gamma is the value of future reward. Learning doesn't work well with high gamma.
         self.defaultq = 0.0
         self.total_reward = 0.0
+        self.alpha_formula = ""
 
     def get_q(self, state, action):
         """Returns the Q-value array for the given state"""
@@ -72,6 +74,10 @@ class LearningAgent(Agent):
         # Gather inputs
         self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator
         print "next_waypoint: ", self.next_waypoint
+        if t != 0:
+            self.alpha = 1.0/t
+            self.alpha_formula = "1.0/t"
+
         # Variables for state
 
         inputs = self.env.sense(self)
@@ -117,6 +123,9 @@ class LearningAgent(Agent):
         # print "location = {}".format(Environment().agent_states[agent]['location'])
 
 
+def write_parameters():
+
+
 def run():
     """Run the agent for a finite number of trials."""
 
@@ -127,14 +136,28 @@ def run():
     # NOTE: You can set enforce_deadline=False while debugging to allow longer trials
 
     # Now simulate it
-    sim = Simulator(e, update_delay=0.4, display=True)  # create simulator (uses pygame when display=True, if available)
+    sim = Simulator(e, update_delay=0.001, display=False)  # create simulator (uses pygame when display=True, if available)
     # NOTE: To speed up simulation, reduce update_delay and/or set display=False
 
     sim.run(n_trials=100)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
-    print "epsilon: ", a.epsilon, "gamma: ", a.gamma, "alpha: ", a.alpha, "defaultq: ", a.defaultq
+    
+
+    print "epsilon: ", a.epsilon, "gamma: ", a.gamma, "alpha: ", a.alpha_formula, "defaultq: ", a.defaultq
     print "Results: ", e.results
     print "Number of Successful Outcomes: ", len(e.results)
-
+    print "Average buffer: ", np.mean([i[2] for i in e.results])
+    print "Avg Penalties per Trial: ", e.penalties/100.0
+    with open('smartcab_parameter_search.html', "a") as f:
+        f.write("\n\nNew Set of Trials")
+        f.write("\nepsilon: " + repr(a.epsilon))
+        f.write("gamma: " + repr(a.gamma))
+        f.write("alpha: " + repr(a.alpha_formula))
+        f.write("defaultq: " + repr(a.defaultq))
+        f.write("\nNumber of Successful Outcomes: " + repr(len(e.results)))
+        f.write("\nAverage buffer: " + repr(np.mean([i[2] for i in e.results])))
+        # f.write("\ni[2]: " + repr([i[2] for i in e.results]))
+        # f.write("\nSum: " + repr(sum([i[2] for i in e.results])))
+        f.write("\nAvg Penalties per Trial: " + repr(e.penalties/100.0))
 if __name__ == '__main__':
     run()

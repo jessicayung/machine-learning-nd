@@ -5,7 +5,7 @@ self.actions = [None, 'forward', 'left', 'right']
 self.q = {}
 self.defaultq = 0.0
 
-Successful: 8/100
+SUCCESS: 8/100
 
 ((python2.7)) jessica@Bourbaki:~/Dropbox/data-science/ml-nd/smartcab$ python smartcab/agent.py 
 Simulator.run(): Trial 0
