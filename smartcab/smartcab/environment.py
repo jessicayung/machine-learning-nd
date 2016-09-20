@@ -22,7 +22,6 @@ class TrafficLight(object):
             self.state = not self.state  # assuming state is boolean
             self.last_updated = t
 
-
 class Environment(object):
     """Environment within which all agents operate."""
 
@@ -39,6 +38,7 @@ class Environment(object):
         self.t = 0
         self.agent_states = OrderedDict()
         self.status_text = ""
+        self.results = []
 
         # Road network
         self.grid_size = (8, 6)  # (cols, rows)
@@ -125,6 +125,8 @@ class Environment(object):
                 print "Environment.step(): Primary agent hit hard time limit ({})! Trial aborted.".format(self.hard_time_limit)
             elif self.enforce_deadline and agent_deadline <= 0:
                 self.done = True
+                self.results.append((agent_deadline, reward))
+                print "Results: ", self.results
                 print "Environment.step(): Primary agent ran out of time! Trial aborted."
             self.agent_states[self.primary_agent]['deadline'] = agent_deadline - 1
 
@@ -211,6 +213,8 @@ class Environment(object):
                     reward += 10  # bonus
                 self.done = True
                 print "Environment.act(): Primary agent has reached destination!"  # [debug]
+                self.results.append((state['deadline'], reward))
+                print "Results: ", self.results
             self.status_text = "state: {}\naction: {}\nreward: {}".format(agent.get_state(), action, reward)
             #print "Environment.act() [POST]: location: {}, heading: {}, action: {}, reward: {}".format(location, heading, action, reward)  # [debug]
 
