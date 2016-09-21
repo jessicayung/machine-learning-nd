@@ -15,13 +15,11 @@ class LearningAgent(Agent):
         self.q = {}
         self.actions = [None, 'forward', 'left', 'right']
 
-
         # Q-Learning parameters
-        self.epsilon = 0.1
+        self.epsilon = 0.000005
         self.alpha = 1 # Alpha is the learning rate
-        self.gamma = 0.5 # gamma is the value of future reward. Learning doesn't work well with high gamma.
+        self.gamma = 0.1 # gamma is the value of future reward. Learning doesn't work well with high gamma.
         self.defaultq = 0.0
-        self.total_reward = 0.0
         self.alpha_formula = ""
 
     def get_q(self, state, action):
@@ -33,17 +31,19 @@ class LearningAgent(Agent):
 
         old_q = self.get_q(state, action)
             
-        new_q = old_q*(1 - self.alpha) + self.alpha*(reward + self.gamma * max_state2_q)
+        new_q = old_q*(1 - self.alpha) + \
+                    self.alpha*(reward + self.gamma * max_state2_q)
         
         self.q[str((state, action))] = new_q
 
     def reset(self, destination=None):
         self.planner.route_to(destination)
         # TODO: Prepare for a new trip; reset any variables here, if required
-        print "q: ", self.q
+        # print "q: ", self.q
+        self.alpha = 1
 
     def choose_action(self, state):
-        """User-created function"""
+        """Choose an action for a given state."""
         # Get all the Q-values corresponding to the current state
         q = [self.get_q(state, a) for a in self.actions]
         print "q: ", q
@@ -65,18 +65,18 @@ class LearningAgent(Agent):
             i = q.index(max_q)
             print "action index: ", i
 
-
-
         # Return the action
         return self.actions[i]
 
     def update(self, t):
+        """Updates state, chooses action (calls choose_action), 
+        executes action, gets reward and learns Q values (calls learn_q)"""
         # Gather inputs
         self.next_waypoint = self.planner.next_waypoint()  # from route planner, also displayed by simulator
         print "next_waypoint: ", self.next_waypoint
         if t != 0:
-            self.alpha = 1.0/t
-            self.alpha_formula = "1.0/t"
+            self.alpha = 1.0/(t**(0.01))
+            self.alpha_formula = "1.0/(t**0.01)"
 
         # Variables for state
 
@@ -84,12 +84,6 @@ class LearningAgent(Agent):
         self.inputs = inputs
         deadline = self.env.get_deadline(self)
         
-        # Variable indicating whether it's possible
-        # TODO: MAKE THIS WORK
-        # possible = (deadline >= compute_dist)        
-        # distance = compute_dist(Environment().agent_states[agent]['location'],destination)
-        #possible = 'possible'
-
         # TODO: Update state
         self.state = [v for v in self.inputs.values()]
         self.state.append(self.next_waypoint)
@@ -109,22 +103,19 @@ class LearningAgent(Agent):
         print "action: ", action
         # Execute action and get reward
         reward = self.env.act(self, action)
-        self.total_reward += reward
 
         self.inputs = self.env.sense(self)
 
         state2 = [v for v in self.inputs.values()]
         state2.append(self.next_waypoint)
         # print "state2: ", state2
+
         # TODO: Learn policy based on state, action, reward
         self.learn_q(self.state, action, reward, state2)
 
-        print "LearningAgent.update(): deadline = {}, inputs = {}, action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
+        print "LearningAgent.update(): deadline = {}, inputs = {}, \
+            action = {}, reward = {}".format(deadline, inputs, action, reward)  # [debug]
         # print "location = {}".format(Environment().agent_states[agent]['location'])
-
-
-def write_parameters():
-
 
 def run():
     """Run the agent for a finite number of trials."""
@@ -142,22 +133,36 @@ def run():
     sim.run(n_trials=100)  # run for a specified number of trials
     # NOTE: To quit midway, press Esc or close pygame window, or hit Ctrl+C on the command-line
     
+    # Prints relevant figures
+    print "epsilon: ", a.epsilon, "gamma: ", a.gamma, \
+        "alpha: ", a.alpha_formula, "defaultq: ", a.defaultq
+    """ Commented out because typical env does not have results or 
+    penalties attributes
 
-    print "epsilon: ", a.epsilon, "gamma: ", a.gamma, "alpha: ", a.alpha_formula, "defaultq: ", a.defaultq
     print "Results: ", e.results
     print "Number of Successful Outcomes: ", len(e.results)
     print "Average buffer: ", np.mean([i[2] for i in e.results])
     print "Avg Penalties per Trial: ", e.penalties/100.0
-    with open('smartcab_parameter_search.html', "a") as f:
-        f.write("\n\nNew Set of Trials")
-        f.write("\nepsilon: " + repr(a.epsilon))
-        f.write("gamma: " + repr(a.gamma))
-        f.write("alpha: " + repr(a.alpha_formula))
-        f.write("defaultq: " + repr(a.defaultq))
-        f.write("\nNumber of Successful Outcomes: " + repr(len(e.results)))
-        f.write("\nAverage buffer: " + repr(np.mean([i[2] for i in e.results])))
-        # f.write("\ni[2]: " + repr([i[2] for i in e.results]))
-        # f.write("\nSum: " + repr(sum([i[2] for i in e.results])))
-        f.write("\nAvg Penalties per Trial: " + repr(e.penalties/100.0))
+    """
+    
+    # Writes data to file
+    with open('smartcab_parameter_search.csv', "a") as f:
+        f.write(" \n" + repr(a.epsilon) + ", ")
+        f.write(repr(a.gamma) + ", ")
+        f.write(repr(a.alpha_formula) + ", ")
+        f.write(repr(a.defaultq) + ", ")
+        """ Commented out because typical env does not have results or 
+        penalties attributes
+        
+
+        # Number of Successful Outcomes
+        f.write(repr(len(e.results)) +  ",")
+        # Average buffer
+        f.write(repr(np.mean([i[2] for i in e.results])) + ", ")
+        # Average Penalties per Trial
+        f.write(repr(e.penalties/100.0))
+        """
+
 if __name__ == '__main__':
-    run()
+    for i in range(50):
+        run()
