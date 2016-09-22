@@ -144,7 +144,7 @@ def run():
     print "Average buffer: ", np.mean([i[2] for i in e.results])
     print "Avg Penalties per Trial: ", e.penalties/100.0
     """
-    
+    print "Q-table: ", a.q
     # Writes data to file
     with open('smartcab_parameter_search.csv', "a") as f:
         f.write(" \n" + repr(a.epsilon) + ", ")

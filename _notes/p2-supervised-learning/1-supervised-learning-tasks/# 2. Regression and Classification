@@ -1,0 +1,100 @@
+# 2. Regression and Classification
+
+(Charles and Michael)
+
+**Supervised learning**: Take examples of inputs and outputs. Now, given a new input, predict its output.
+
+Regression is special because we're **mapping continuous inputs to outputs**. vs discrete input to discrete/continuous output.
+
+Origin: Height of children *regressing* to the mean.
+Term misused -> people were really referring to the idea of finding a mathematical relationship based on measurements of points.
+
+Similar with Reinforcement learning: mathmos named RL that but that's not what RL (first in psychology) actually is.
+
+[Origin of Regression](r-and-c-03.png)
+
+## Line of best fit
+How do we find the line of best fit? (Least squared error)
+- Calculus
+Loss error function chosen: Squares because it's well-behaved, **smooth**.
+
+$$E(c) = \sum_{i=1}^n (y_i-c)^2 $$
+
+Differentiate with respect to c. $c = \bar y$.
+
+Fitting polynomial functions.
+Parabola has more degrees of freedom. If the best fit was a line, the parabola wouldn't have any curve in it.
+-> Can't go past order = number of data points. (n-1?)
+
+[img](r-and-c-07.png)
+
+[Training Error with Degrees](r-and-c-07b.png)
+
+[Polynomial Regression](r-and-c-10.png)
+-> Solve through least squares:
+(X^T)X has inverse.
+
+['Solving' for polynomial regression](r-and-c-10b.png)
+
+Need to use least squares because of 
+### Errors
+Not modelling f, but f + $\epsilon$.
+
+Sources of error:
+- Sensor error (physical)
+- Misrepresented data
+- Data entry (transcription) error
+- Unmodeled influences
+
+Want to fit signal, not underlying error or noise.
+
+## Cross-validation
+
+If we don't like e.g. a linear model because we think there's too much error, we could use a higher order model.
+BUT then it wouldn't generalise well. Goal is to generalise.
+
+**Test set is just a stand-in for what we don't know what we're going to see in the real world.**
+
+Nothing we do on our training or test sets make sense unless we think they will be **representative** of what we'll see in the future in the real world.
+
+I.e. 
+### **count on data being IID**: 
+Independent and identically distributed (coming from the same source).
+-> Fundamental assumption in many algorithms.
+
+We want to use a model that is complex enough to fit the data without causing problems on the test set.
+
+### Cross-validation set
+We can take some of the training set and pretend it's a test set and it's not cheating because it's not actually the test set.
+
+Folds: (sheep?)
+[CV](r-and-c-13.png)
+
+Blue line initially higher because predicting on some data it hasn't seen before vs red line predicting on same data it was trained on.
+
+More power tends to overfit training data at expense of generalisation.
+[CV](r-and-c-14.png)
+
+[CV](r-and-c-14b.png)
+
+## Other Input Spaces
+So far have talked about 
+- scalar input, continuous. x
+
+Also have:
+- vector iinput, continuous. x
+     - e.g. Features: size and distance from zoo for housing prices.
+     - Generalise to planes and hyperplanes vs lines.
+- discrete {0,1}, vector or scalar.
+    - e.g. predicting credit score features: Do they have a job? (discrete) What is the value of assets they currently hold? (continuous)
+    - Encoding features:
+        - Enumerating (red is 1, beige is 2, brown is 3. Implies beige is between red and brown, which it kinda isn't.)
+        - Boolean vectors for each
+
+## Summary
+- Historical facts
+- Model selection and under/over-fitting
+- Cross-validation
+- Linear, polynomial regression
+- Best constant in terms of squared error: Mean
+- (Input) Representation for regression
