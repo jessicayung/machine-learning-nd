@@ -15,9 +15,9 @@ This directory includes lecture notes (`lesson_notes`) and project code (`p0` to
 See also: [My notes for Udacity's Data Analyst Nanodegree](https://www.udacity.com/course/data-analyst-nanodegree--nd002?v=a).
 
 ## Program Outline:
--------------------
 
-(0 Exploratory Project: Titanic Survival Exploration)
+0) Exploratory Project: Titanic Survival Exploration
+
 1. Model Evaluation and Validation
 	- Project 1: Predicting Boston Housing Prices
 2. Supervised Learning
