@@ -5,6 +5,7 @@ Udacity's Machine Learning Nanodegree project files and notes.
 This repository contains project files and lecture notes for [Udacity's Machine Learning Engineer Nanodegree program](https://www.udacity.com/course/machine-learning-engineer-nanodegree--nd009) which I started working on in September 2016.
 
 The Machine Learning Engineer Nanodegree is an online certification. It involves
+
 1. Courses in supervised learning, unsupervised learning and reinforcement learning and
 2. Six projects (p0-p5 in this directory).
 
