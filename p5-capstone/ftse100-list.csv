@@ -1,0 +1,99 @@
+ticker,name,premium_code,free_code
+ADN,Aberdeen Asset Management,,GOOG/LON_ADN
+ADM,Admiral Group,EOD/ADM,GOOG/LON_ADM
+AGK,Aggreko,,GOOG/LON_AGK
+AMEC,AMEC,,GOOG/LON_AMEC
+AAL,Anglo American plc,EOD/AAL,GOOG/LON_AAL
+ANTO,Antofagasta,,GOOG/LON_ANTO
+ARM,ARM Holdings,,GOOG/LON_ARM
+ABF,Associated British Foods,,GOOG/LON_ABF
+AZN,AstraZeneca,EOD/AZN,GOOG/LON_AZN
+AV,Aviva,EOD/AV,
+BAB,Babcock International,EOD/BAB,GOOG/LON_BAB
+BA,BAE Systems,EOD/BA,
+BARC,Barclays,,GOOG/LON_BARC
+BG,BG Group,EOD/BG,
+BLT,BHP Billiton,EOD/BLT,GOOG/LON_BLT
+BP,BP,EOD/BP,
+BTI,British American Tobacco,EOD/BTI,
+BLND,British Land Co,,GOOG/LON_BLND
+BSY,BSkyB,,GOOG/LON_BSY
+BT_A,BT Group,,GOOG/LON_BT_A
+BNZL,Bunzl,,GOOG/LON_BNZL
+BRBY,Burberry Group,,GOOG/LON_BRBY
+CPI,Capita,EOD/CPI,GOOG/LON_CPI
+CUK,Carnival plc,EOD/CUK,GOOG/LON_CUK
+CNA,Centrica,EOD/CNA,GOOG/LON_CNA
+CCH,Coca-Cola HBC AG,,
+CPG,Compass Group,EOD/CPG,GOOG/LON_CPG
+CRH,CRH plc,EOD/CRH,GOOG/LON_CRH
+CRDA,Croda International,,GOOG/LON_CRDA
+DGE,Diageo,,GOOG/LON_DGE
+ENRC,Eurasian Natural Resources,,GOOG/LON_ENRC
+EVR,Evraz,EOD/EVR,GOOG/LON_EVR
+EXPN,Experian,,GOOG/LON_EXPN
+FRES,Fresnillo plc,,GOOG/LON_FRES
+GFS,G4S,,GOOG/LON_GFS
+GKN,GKN,,GOOG/LON_GKN
+GSK,GlaxoSmithKline,EOD/GSK,GOOG/LON_GSK
+GLEN,Glencore International,,GOOG/LON_GLEN
+HMSO,Hammerson,,GOOG/LON_HMSO
+HL,Hargreaves Lansdown,EOD/HL,
+HSBA,HSBC,,GOOG/LON_HSBA
+IMI,IMI plc,EOD/IMI,GOOG/LON_IMI
+IMT,Imperial Tobacco Group,,GOOG/LON_IMT
+IHG,InterContinental Hotels Group,EOD/IHG,GOOG/LON_IHG
+IAG,International Consolidated Airlines Group SA,EOD/IAG,GOOG/LON_IAG
+ITRK,Intertek Group,,GOOG/LON_ITRK
+ITV,ITV plc,,GOOG/LON_ITV
+SBRY,J Sainsbury plc,,GOOG/LON_SBRY
+JMAT,Johnson Matthey,,GOOG/LON_JMAT
+KGF,Kingfisher plc,,GOOG/LON_KGF
+LAND,Land Securities Group,EOD/LAND,GOOG/LON_LAND
+LGEN,Legal & General,,GOOG/LON_LGEN
+LLOY,Lloyds Banking Group,,GOOG/LON_LLOY
+MKS,Marks & Spencer Group,,GOOG/LON_MKS
+MGGT,Meggitt,,GOOG/LON_MGGT
+MRO,Melrose plc,EOD/MRO,GOOG/LON_MRO
+MRW,Morrison Supermarkets,,GOOG/LON_MRW
+NG,National Grid plc,EOD/NG,
+NXT,Next plc,,GOOG/LON_NXT
+OML,Old Mutual,,GOOG/LON_OML
+PSO,Pearson plc,EOD/PSO,
+PFC,Petrofac,,GOOG/LON_PFC
+PRU,Prudential plc,EOD/PRU,GOOG/LON_PRU
+RRS,Randgold Resources,,GOOG/LON_RRS
+RB,Reckitt Benckiser,,
+REL,Reed Elsevier,,GOOG/LON_REL
+FLG,Friends Life Group,,
+REX,Rexam,EOD/REX,GOOG/LON_REX
+RIO,Rio Tinto Group,EOD/RIO,GOOG/LON_RIO
+RR,Rolls-Royce Group,,
+RBS,Royal Bank of Scotland Group,EOD/RBS,GOOG/LON_RBS
+RDSA,Royal Dutch Shell,,GOOG/LON_RDSA
+RSA,RSA Insurance Group,,GOOG/LON_RSA
+SAB,SABMiller,,GOOG/LON_SAB
+SGE,Sage Group,,GOOG/LON_SGE
+SDR,Schroders,EOD/SDR,GOOG/LON_SDR
+SRP,Serco,,GOOG/LON_SRP
+SVT,Severn Trent,EOD/SVT,GOOG/LON_SVT
+SHPG,Shire plc,EOD/SHPG,
+SNN,Smith & Nephew,EOD/SNN,
+SMIN,Smiths Group,,GOOG/LON_SMIN
+SSE,SSE plc,EOD/SSE,GOOG/LON_SSE
+STAN,Standard Chartered,,GOOG/LON_STAN
+SL,Standard Life,,
+TATE,Tate & Lyle,,GOOG/LON_TATE
+TSCO,Tesco,EOD/TSCO,GOOG/LON_TSCO
+TT,TUI Travel,,
+TLW,Tullow Oil,,GOOG/LON_TLW
+ULVR,Unilever,,GOOG/LON_ULVR
+UU,United Utilities,,
+VED,Vedanta Resources,,GOOG/LON_VED
+VOD,Vodafone Group,EOD/VOD,GOOG/LON_VOD
+WEIR,Weir Group,,GOOG/LON_WEIR
+WTB,Whitbread,,GOOG/LON_WTB
+WOS,Wolseley plc,,GOOG/LON_WOS
+WG_,Wood Group,,GOOG/LON_WG_
+WPP,WPP plc,EOD/WPP,GOOG/LON_WPP
+XTA,Xstrata,,GOOG/LON_XTA
