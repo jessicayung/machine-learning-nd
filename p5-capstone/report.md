@@ -1,7 +1,13 @@
+# Predicting Daily Adjusted Close Stock Prices
+### Machine Learning in Trading: An Exploratory Study
+
+Jessica Yung, October 2016
+
+Udacity Machine Learning Nanodegree Capstone Project
 
 # I. Definition
 
-## Project Overview
+## I.1 Project Overview
 
 ### Introduction
 People have used machine learning in trading for decades. Hedge funds, high-frequency trading shops and sole traders use all sorts of strategies, from Bayesian statistics to physics related strategies.
@@ -36,7 +42,7 @@ There is one primary dataset for this project and two supplementary datasets.
 
 The features and characteristics of the primary dataset will be discussed more thoroughly in Section II: Data Exploration.
 
-## Problem Statement
+## I.2 Problem Statement
 
 ### Problem
 
@@ -45,7 +51,6 @@ Build a stock price predictor that satifies:
 <th>Category</th><th>Details</th>
 <tr><td>Input</td><td>Daily trade data over a `start_date - end_date`. Daily trade data consists of adjusted and unadjusted Open, High, Low, Close figures for a set of stocks S.</td></tr>
 <tr><td>Output</td><td><ul><li>Projected estimates of Adjusted Close prices for query dates for pre-chosen stock BP in S.</li><li>Results satisfy predicted stock value 7 days out is within +/- 5% of actual value, on average.</li></td></tr>
-<tr><td>Optional Output</td><td>Suggested trades</td></tr>
 </table>
 
 Glossary:
@@ -91,7 +96,7 @@ I intend to do the following:
 
 The solution will be 7 predicted prices for each trading day within 7 trading days after the last date in the input date range. We will compare the 7 predicted prices with the actual adjusted close prices.
 
-## Metrics
+## I.3 Metrics
 
 We will measure performance as the **root mean squared percentage error** (difference between the stock's actual and predicted Adjusted Close prices). This represents the error between the actual price and the predicted price. 
 
@@ -104,8 +109,7 @@ We will not consider transaction costs (you have to pay every time you trade and
 
 # II. Analysis
 
-## Data Exploration
-
+## II.1 Data Exploration
 
 ### Description of Primary Dataset
 The primary dataset used is daily stock data for stocks on the London Stock Exchange (LSE). The date range for stock data varies depending on when the stock went public. The furthest date was in the year 1954. The most recent date in the dataset was 9 September 2016. The data was taken from Quandl's free access database.
@@ -195,7 +199,7 @@ I have checked the count is 10010 across all columns, i.e. that there are no mis
 
 This is much better understood with a visualisation of the BP data.
 
-## Exploratory Visualisations
+## II.2 Exploratory Visualisations
 
 ### Open and Adjusted Open Prices
 Let's first get an idea of the open and adjusted open prices. This is equivalent to visualising the the close and adjusted close prices - the variable we want to predict - shifted by one day.
@@ -225,7 +229,7 @@ To examine the volatility of BP stock, I constructed the features Percentage Var
 #### Observations
 The Adjusted Percentage Variation and Percentage Variation look similar. There does not seem to be marked trends. It is of note that the stocks are consistently volatile with typical percentage variation of 0-4% in recent years, punctuated with spikes of extremely volatile periods of up to 16% variation.
 
-## Algorithms and techniques
+## II.3 Algorithms and techniques
 
 
 ### Algorithm
@@ -271,23 +275,13 @@ Within these, there is only one parameter that it may be useful to adjust (`norm
     - To do this, I wrote the function `execute()`. In this function, I set a number of train-test cycles (`steps`), a total length of the train-test data (`periods` datapoints) and a number of datapoints between the starting points of each consecutive train-test cycle (`buffer_step`).
   
 
-## Benchmark
+## II.4 Benchmark
 
 The benchmark given in the project outline was +/- 5% of the stock price 7 days out. That seems reasonable to start.
 
-
-## III. Methodology
-_(approx. 3-5 pages)_
-
-### Data Preprocessing
-In this section, all of your preprocessing steps will need to be clearly documented, if any were necessary. From the previous section, any of the abnormalities or characteristics that you identified about the dataset will be addressed and corrected here. Questions to ask yourself when writing this section:
-- _If the algorithms chosen require preprocessing steps like feature selection or feature transformations, have they been properly documented?_
-- _Based on the **Data Exploration** section, if there were abnormalities or characteristics that needed to be addressed, have they been properly corrected?_
-- _If no preprocessing is needed, has it been made clear why?_
-
 # III. Methodology
 
-## Data Preprocessing
+## III.1 Data Preprocessing
 
 ### Minor edits
 1. On opening the CSV and sampling it with `df.head()`, I realised the CSV had no header. I added a header to the CSV:
@@ -346,7 +340,7 @@ I thus proxied the missing prices by taking the means of the the FTSE prices fro
 
 As with prices of oil stocks, an improvement would be to consult another data source to fill in the gaps.
 
-## Initial implementation
+## III.2 Initial implementation
 I initially implemented the Linear Regression algorithm with the following basic features:
 * Adjusted Close prices on each of the 7 days prior to the first prediction date
 * Max Adjusted High and Min Adjusted Low for that 7-day period prior to the first prediction date.
@@ -404,9 +398,7 @@ The SVM regression did horribly - it had a negative mean R2 score (-2.044) and n
 
 It is impressive that the Linear Regression model did so well with such basic features.
 
-# TODO: Insert plot of predictions vs actual prices
-
-## Refinement
+## III.4 Refinement
 
 ### 1. Adjusting parameters
 
@@ -443,10 +435,10 @@ We can see that mean RMS percentage error is slightly smaller in one instance (u
 
 This is because more days' of data in this case means more features (e.g. for 100 days' of data we have 102 features). This increases the risk of overfitting.
 
+
 #### 2.2 Adding GAIA (Oil Stock) Prices
 
-
-There were far fewer datapoints to work with because because of date inconsistencies (3753 datapoints vs 10010 for the BP-only model), so I decreased the step length (the difference between start dates) between consecutive trials to 200 from 500. This does not affect individual trial performance, but reduces the variety of data used for trials. We should bear this in mind when comparing performance of adding GAIA prices as features and not adding GAIA prices as features. 
+There were far fewer datapoints to work with because of date inconsistencies (3753 datapoints vs 10010 for the BP-only model), so I decreased the step length (the difference between start dates) between consecutive trials to 200 from 500. This does not affect individual trial performance, but reduces the variety of data used for trials. We should bear this in mind when comparing performance of adding GAIA prices as features and not adding GAIA prices as features. 
 
 <table>
 <th>Day to predict</th><th>7d (no GAIA)</th><th>7d (GAIA)</th><th>10d (no GAIA)</th><th>10d (GAIA)</th>
@@ -499,7 +491,7 @@ Improvement (Implementation): Generalise functions `prepare_train_test_with_ftse
 
 # IV. Results
 
-## Model Evaluation and Validation
+## IV.1 Model Evaluation and Validation
 
 ### Model Choice
 
@@ -533,7 +525,7 @@ There are two types of metrics we need to look at: mean performance and variance
 <tr><td>7</td><td>4.162</td></tr>
 </table>
 
-## Justification (Comparison with expectations)
+## IV.2 Justification (Comparison with expectations)
 
 Overall, this model aligns with solution expectations and on average performs slightly better than the benchmark of predicting within +/- 5% of the stock's adjusted closing price 7 days after the last training date. The model has mean performance of 4.162% error predicting adjusted closing price 7 days ahead. 
 
@@ -542,9 +534,9 @@ The solution gives a reasonably accurate predictions but it **is not significant
 
 # V. Conclusion
 
-## Free-Form Visualisation
+## V.1 Free-Form Visualisation
 
-### Visualisation 1: Plotting predictions compared with actual prices
+### Plotting predictions compared with actual prices
 
 This graph visualises the 7th-day predictions compared with the actual adjusted close prices.
 By 7th-day predictions, I am referring to the price predicted for e.g. Sept 7 if we are given training data up till Aug 30th. The purpose is to see how predictions vary with actual prices. I picked 200 datapoints to visualise because visualising all the points at once does not provide much insight.
@@ -555,7 +547,7 @@ Here is the visualisation with all points for reference:
 
 <img src="images/freeform-viz-all-points.png" />
 
-## Reflection
+## V.2 Reflection
 
 ### Summary
 
@@ -592,7 +584,7 @@ I then chose the model with the lowest mean root mean squared percentage error, 
     
 It is worth noting that the interesting and difficult parts of this project overlapped.
 
-## Improvements
+## V.3 Improvements
 
 <table>
 <th>Improvement</th><th>Expected Change</th>
