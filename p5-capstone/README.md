@@ -20,6 +20,7 @@ Machine Learning
 * `2-analysis-code-py2.ipynb`: Code for Section II: Analysis.
 * `3-methodology-results-conclusion-code-py2.ipynb` Code for Sections III - V: Methodology, Results and Conclusion.
 * There are Python 3 alternatives to the code files: `2-analysis-code-py3.ipynb` and `3-methodology-results-conclusion-code-py2.ipynb`.
+
 #### IMPORTANT: When running the `.ipynb` code files, you must replace the file path '~/lse-data/lse/WIKI\_20160909.csv' with the filepath to your copy of the dataset. (See Datasets used for instructions on how to obtain the dataset.) This file path is included once per `.ipynb` file near the top.
 
 ## Supplementary Files
