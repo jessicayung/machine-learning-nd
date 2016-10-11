@@ -61,6 +61,8 @@ Glossary:
 There are a few interesting characteristics of this problem compared to previous projects in the Machine Learning Engineer Nanodegree.
 
 1. Predicting multiple outputs: We will predict the adjusted close prices for 7 days after the last input date.
+2. Extracting and engineering the input data as opposed to being given input data.
+3. We will be using time series data.
 
 ### Challenges
 1. The model has to be run for dates not within the training set for the model to be 'fair'. But given there may be big shifts in how people view the markets from year to year, it may be hard for the model to generalise from one year to the next.
@@ -98,11 +100,13 @@ The solution will be 7 predicted prices for each trading day within 7 trading da
 
 ## I.3 Metrics
 
-We will measure performance as the **root mean squared percentage error** (difference between the stock's actual and predicted Adjusted Close prices). This represents the error between the actual price and the predicted price. 
+We will measure performance as the **root mean squared percentage error** (difference between the stock's actual and predicted Adjusted Close prices). 
 
-Reasoning: We have to square it and then take the square root because if we don't square it, errors from overestimates and underestimates will cancel each other out.
+Reasoning: 
+1. This represents the error between the actual price and the predicted price. 
+2. We have to square it and then take the square root because if we don't square it, errors from overestimates and underestimates will cancel each other out.
 
-We will also consider **the range of root mean squared percentage error** as a secondary metric - we want a model with lower error variance because a series of small good trades (gaining \$1 ten times) can be more than cancelled out by a single large-magnitude bad trade (losing \$50 once).
+We will also informally consider **the range of root mean squared percentage error** as a secondary metric - we want a model with lower error variance because a series of small good trades (gaining \$1 ten times) can be more than cancelled out by a single large-magnitude bad trade (losing \$50 once).
 
 We will not consider transaction costs (you have to pay every time you trade and that will reduce profits).
 
@@ -278,6 +282,8 @@ Within these, there is only one parameter that it may be useful to adjust (`norm
 ## II.4 Benchmark
 
 The benchmark given in the project outline was +/- 5% of the stock price 7 days out. That seems reasonable to start.
+
+That is, our benchmark will be a **root mean squared percentage error of 5%**.
 
 # III. Methodology
 
@@ -497,12 +503,13 @@ Improvement (Implementation): Generalise functions `prepare_train_test_with_ftse
 
 The final model is 
 - Features:
-    - BP Adjusted Close, max BP Adjusted High, min BP Adjusted Low
-    - FTSE Close, max FTSE High and min FTSE Low 
-for 7 days prior to the first prediction date.
+    - BP Adjusted Close, max BP Adjusted High, min BP Adjusted Low for 7 days prior to the first prediction date.
+    - FTSE Close, max FTSE High and min FTSE Low for 7 days prior to the first prediction date.
 - Classifier:
-    - Default Linear Regression
-
+    - Default Linear Regression (`sklearn.linear_model.LinearRegression`)
+- Target: 
+    - Predict BP Adjusted Close prices for 7 days after the final training date.
+    
 This model had the **lowest mean root mean squared percentage error** across over 10 trials (across timespans of around 30 years) out of all the models I tried.
 
 Insight: Most of the improvements I tried to make only made the model worse. This goes to show that added complexity doesn't necessarily make a model better, especially when that complexity contains much noise.
