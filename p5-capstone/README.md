@@ -1,7 +1,14 @@
 # MLND Capstone Project
 
+### Machine Learning for Trading - an Exploratory Study
+Topic: Predicting Daily Adjusted Close Stock Prices
+
 ## Libraries used
-* sklearn
+* sklearn (modules used listed below)
+    * metrics
+    * multioutput
+    * linear\_model
+    * svm
 * numpy
 * pandas
 * seaborn
@@ -12,6 +19,7 @@ Machine Learning
 * `report.md`: The project report.
 * `2-analysis-code-py2.ipynb`: Code for Section II: Analysis.
 * `3-methodology-results-conclusion-code-py2.ipynb` Code for Sections III - V: Methodology, Results and Conclusion.
+* There are Python 3 alternatives to the code files: `2-analysis-code-py3.ipynb` and `3-methodology-results-conclusion-code-py2.ipynb`.
 
 ## Supplementary Files
 ### Datasets used
@@ -20,4 +28,4 @@ Machine Learning
 * `list-of-all-securities-ex-debt.csv`: List of companies listed on the LSE.
 
 ### Helper scripts
-* `google-finance-scraper.py`: Python script I used to scrape FTSE100 data from Google Finance. Not needed to run project. Written in Python 3.
+* `google-finance-scraper-py2.py`: Python script I used to scrape FTSE100 data from Google Finance. Not needed to run project. Written in Python 3 and converted print statements. (Python 3 alternative available at`google-finance-scraper.py`.)
